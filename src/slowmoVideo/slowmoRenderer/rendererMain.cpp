@@ -243,15 +243,15 @@ int main(int argc, char *argv[])
                 return -1;
             }
             std::cerr << "will slow down to : " << slowfactor << std::endl;
-	    renderer.setSpeed(slowfactor);
+            renderer.setSpeed(slowfactor);
             next++;
         } else if ("-save_project_as" == args.at(next)) {
             require(1, next, n);
             next++;
             QString filename = args.at(next++);
             // We do nothing here
-        }
-	} else {
+
+    	} else {
             std::cout << "Argument not recognized: " << args.at(next).toStdString() << std::endl;
             printHelp();
             return -1;
