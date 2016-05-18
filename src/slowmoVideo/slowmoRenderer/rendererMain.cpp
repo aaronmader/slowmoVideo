@@ -261,7 +261,7 @@ int main(int argc, char *argv[])
         return 42;
     }
 
-    const int n = args.size();
+    int n = args.size();
     while (next < n) {
         if ("-save_project_as" == args.at(next)) {
             require(1, next, n);
