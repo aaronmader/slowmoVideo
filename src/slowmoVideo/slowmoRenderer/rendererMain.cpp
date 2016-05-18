@@ -54,6 +54,9 @@ void printHelp()
               << "\t-interpolation [forward[2]|twoway[2]] " << std::endl
               << "\t -motionblur [stack|convolve] " << std::endl
               << "\t-v3dLambda <lambda> " << std::endl;
+              << "\t-slowfactor <int> " << std::endl;
+              << "\t-save_project_as <filename> " << std::endl;
+              << "\t-load_project <filename> " << std::endl;
 }
 
 void require(int nArgs, int index, int size)
@@ -105,7 +108,13 @@ int main(int argc, char *argv[])
 
     const int n = args.size();
     while (next < n) {
-        if ("-target" == args.at(next)) {
+        if ("-load_project" == args.at(next)) {
+            require(1, next, n);
+            next++;
+            QString filename = args.at(next++);
+            renderer.load(filename)
+
+        } else if ("-target" == args.at(next)) {
             require(3, next, n);
             next++;
             if ("video" == args.at(next)) {
@@ -250,6 +259,17 @@ int main(int argc, char *argv[])
         std::cout << msg.toStdString() << std::endl;
         std::cout << "Project will not be rendered." << std::endl;
         return 42;
+    }
+
+    const int n = args.size();
+    while (next < n) {
+        if ("-save_project_as" == args.at(next)) {
+            require(1, next, n);
+            next++;
+            QString filename = args.at(next++);
+            renderer.save(filename);
+            return 42;
+        }
     }
 
     if (genproj) 
