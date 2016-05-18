@@ -267,6 +267,7 @@ int main(int argc, char *argv[])
         return 42;
     }
 
+    next = 1;
     while (next < n) {
         if ("-save_project_as" == args.at(next)) {
             require(1, next, n);
@@ -274,6 +275,8 @@ int main(int argc, char *argv[])
             QString filename = args.at(next++);
             renderer.save(filename);
             return 42;
+        } else {
+            next++;
         }
     }
 
