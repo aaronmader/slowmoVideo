@@ -53,9 +53,9 @@ void printHelp()
               << "\t-start <startTime> -end <endTime> " << std::endl
               << "\t-interpolation [forward[2]|twoway[2]] " << std::endl
               << "\t -motionblur [stack|convolve] " << std::endl
-              << "\t-v3dLambda <lambda> " << std::endl;
-              << "\t-slowfactor <int> " << std::endl;
-              << "\t-save_project_as <filename> " << std::endl;
+              << "\t-v3dLambda <lambda> " << std::endl
+              << "\t-slowfactor <int> " << std::endl
+              << "\t-save_project_as <filename> " << std::endl
               << "\t-load_project <filename> " << std::endl;
 }
 
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
             require(1, next, n);
             next++;
             QString filename = args.at(next++);
-            renderer.load(filename)
+            renderer.load(filename);
 
         } else if ("-target" == args.at(next)) {
             require(3, next, n);
