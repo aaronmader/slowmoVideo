@@ -15,6 +15,7 @@ the Free Software Foundation, either version 3 of the License, or
 #include <QtCore/QTimer>
 #include <QtCore/QTime>
 #include <QtCore/QRegExp>
+#include <unistd.h>
 
 QRegExp VideoFrameSource_sV::regexFrameNumber("frame=\\s*(\\d+)");
 
@@ -306,6 +307,9 @@ void VideoFrameSource_sV::loadOrigFrames()
     m_ffmpeg->terminate();
    
     qDebug() << "ffmpeg in  " << time.elapsed()  << "ms";
+
+    qDebug() << "waiting 10 minutes. (now's the time to replace the rendered images) ";
+    usleep(1000*60*10);
 
     m_ffmpegSemaphore.release();
     
