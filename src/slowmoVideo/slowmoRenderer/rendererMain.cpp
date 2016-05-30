@@ -53,10 +53,7 @@ void printHelp()
               << "\t-start <startTime> -end <endTime> " << std::endl
               << "\t-interpolation [forward[2]|twoway[2]] " << std::endl
               << "\t -motionblur [stack|convolve] " << std::endl
-              << "\t-v3dLambda <lambda> " << std::endl
-              << "\t-slowfactor <int> " << std::endl
-              << "\t-save_project_as <filename> " << std::endl
-              << "\t-load_project <filename> " << std::endl;
+              << "\t-v3dLambda <lambda> " << std::endl;
 }
 
 void require(int nArgs, int index, int size)
@@ -98,23 +95,17 @@ int main(int argc, char *argv[])
 
     int next = 1;
     if ((args.at(1)).contains("svProj", Qt::CaseInsensitive) ) {
-	    renderer.load(args.at(1));
-	    next = 2;
+        renderer.load(args.at(1));
+        next = 2;
     } else 
-	    renderer.create();
+        renderer.create();
 
     QString start = ":start";
     QString end = ":end";
 
     const int n = args.size();
     while (next < n) {
-        if ("-load_project" == args.at(next)) {
-            require(1, next, n);
-            next++;
-            QString filename = args.at(next++);
-            renderer.load(filename);
-
-        } else if ("-target" == args.at(next)) {
+        if ("-target" == args.at(next)) {
             require(3, next, n);
             next++;
             if ("video" == args.at(next)) {
@@ -243,15 +234,9 @@ int main(int argc, char *argv[])
                 return -1;
             }
             std::cerr << "will slow down to : " << slowfactor << std::endl;
-            renderer.setSpeed(slowfactor);
+        renderer.setSpeed(slowfactor);
             next++;
-        } else if ("-save_project_as" == args.at(next)) {
-            require(1, next, n);
-            next++;
-            QString filename = args.at(next++);
-            // We do nothing here
-
-    	} else {
+    } else {
             std::cout << "Argument not recognized: " << args.at(next).toStdString() << std::endl;
             printHelp();
             return -1;
@@ -267,22 +252,9 @@ int main(int argc, char *argv[])
         return 42;
     }
 
-    next = 1;
-    while (next < n) {
-        if ("-save_project_as" == args.at(next)) {
-            require(1, next, n);
-            next++;
-            QString filename = args.at(next++);
-            renderer.save(filename);
-            return 42;
-        } else {
-            next++;
-        }
-    }
-
     if (genproj) 
-	renderer.save("test.svProj");
+    renderer.save("test.svProj");
     else
-	renderer.start();
+    renderer.start();
 
 }
