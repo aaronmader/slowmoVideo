@@ -15,7 +15,10 @@ the Free Software Foundation, either version 3 of the License, or
 #include <QtCore/QTimer>
 #include <QtCore/QTime>
 #include <QtCore/QRegExp>
-#include <unistd.h>
+
+/* for nanosleep */
+#include <stdio.h>
+#include <time.h>
 
 QRegExp VideoFrameSource_sV::regexFrameNumber("frame=\\s*(\\d+)");
 
@@ -309,7 +312,12 @@ void VideoFrameSource_sV::loadOrigFrames()
     qDebug() << "ffmpeg in  " << time.elapsed()  << "ms";
 
     qDebug() << "waiting 10 minutes. (now's the time to replace the rendered images) ";
-    usleep(1000*60*10);
+    struct timespec tim, tim2;
+    tim.tv_sec = 600;
+    tim.tv_nsec = 0;
+    if(nanosleep(&tim , &tim2) < 0){
+        qDebug() << "nanosleep call failed ";
+    }
 
     m_ffmpegSemaphore.release();
     
