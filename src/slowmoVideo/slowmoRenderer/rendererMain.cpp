@@ -95,10 +95,10 @@ int main(int argc, char *argv[])
 
     int next = 1;
     if ((args.at(1)).contains("svProj", Qt::CaseInsensitive) ) {
-	    renderer.load(args.at(1));
-	    next = 2;
+        renderer.load(args.at(1));
+        next = 2;
     } else 
-	    renderer.create();
+        renderer.create();
 
     QString start = ":start";
     QString end = ":end";
@@ -234,9 +234,9 @@ int main(int argc, char *argv[])
                 return -1;
             }
             std::cerr << "will slow down to : " << slowfactor << std::endl;
-	    renderer.setSpeed(slowfactor);
+        renderer.setSpeed(slowfactor);
             next++;
-	} else {
+    } else {
             std::cout << "Argument not recognized: " << args.at(next).toStdString() << std::endl;
             printHelp();
             return -1;
@@ -253,8 +253,8 @@ int main(int argc, char *argv[])
     }
 
     if (genproj) 
-	renderer.save("test.svProj");
+    renderer.save("test.svProj");
     else
-	renderer.start();
+    renderer.start();
 
 }
